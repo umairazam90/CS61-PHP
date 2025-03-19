@@ -1,5 +1,9 @@
 -<?php
-// index.php
+echo'moavia is B and C';
+$a=5;
+$b=6;
+$c=$a+$b;
+echo'sum of two numbers:'.$c;
 ?>
 <!DOCTYPE html>
 <html lang="en">
