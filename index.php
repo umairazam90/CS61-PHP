@@ -1,36 +1,34 @@
--<?php
-echo'moavia is B and C';
-$a=5;
-$b=6;
-$c=$a+$b;
-echo'sum of two numbers:'.$c;
+<?php
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db   = 'auth_system';
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = trim($_POST['username']);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+    $stmt->bind_param("ss", $username, $password);
+
+    if ($stmt->execute()) {
+        $message = "User registered successfully!";
+    } else {
+        $message = "Username already exists!";
+    }
+}
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple PHP Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to My Simple PHP Website</h1>
-        <p>The current server time is: <strong><?php echo date('Y-m-d H:i:s'); ?></strong></p>
-    </div>
-</body>
-</html>
+
+<h2>Sign Up</h2>
+<form method="POST" action="">
+    <input type="text" name="username" required placeholder="Username"><br>
+    <input type="password" name="password" required placeholder="Password"><br>
+    <button type="submit">Sign Up</button>
+</form>
+<p><?php echo $message; ?></p>
+<a href="login.php">Already have an account? Login</a>
