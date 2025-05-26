@@ -1,4 +1,3 @@
-
 <?php
 // client/view_lawyers.php
 require_once __DIR__ . '/../includes/db_config.php';
@@ -66,7 +65,7 @@ $conn->close();
 <div class="row mb-4">
     <div class="col-12">
         <h2 class="mb-4 text-primary"><i class="fas fa-search me-2"></i>Find Your Lawyer</h2>
-        
+
         <!-- Search Form -->
         <div class="card shadow-sm mb-4">
             <div class="card-body">
@@ -101,7 +100,7 @@ $conn->close();
                 </form>
             </div>
         </div>
-        
+
         <!-- Results Summary -->
         <div class="mb-3">
             <span class="text-muted">
@@ -139,7 +138,7 @@ $conn->close();
                                  alt="Default Profile" class="profile-pic">
                         </div>
                     <?php endif; ?>
-                    
+
                     <h3 class="card-title text-center mb-2"><?php echo htmlspecialchars($lawyer['name']); ?></h3>
                     <p class="card-text text-center text-muted mb-3">
                         <i class="fas fa-briefcase me-1"></i>

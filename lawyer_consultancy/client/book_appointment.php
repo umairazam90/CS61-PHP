@@ -33,8 +33,9 @@ if ($lawyer_id) {
     }
     $stmt->close();
 } else {
-    $message = "No lawyer selected for appointment.";
-    $message_type = "error";
+    // Redirect to view lawyers page if no lawyer_id is provided
+    header("Location: " . BASE_URL . "client/view_lawyers.php");
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $lawyer_id) {
@@ -63,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $lawyer_id) {
         } else {
             // Insert appointment
             $stmt_insert = $conn->prepare("INSERT INTO appointments (user_id, lawyer_id, appointment_date, appointment_time, description, status) VALUES (?, ?, ?, ?, ?, 'pending')");
-            $stmt_insert->bind_param("iiss", $user_id, $selected_lawyer_id, $appointment_date, $appointment_time, $description);
+            $stmt_insert->bind_param("iisss", $user_id, $selected_lawyer_id, $appointment_date, $appointment_time, $description);
 
             if ($stmt_insert->execute()) {
                 $message = "Appointment booked successfully! It is pending confirmation.";
@@ -103,7 +104,7 @@ $conn->close();
                 </div>
             <?php endif; ?>
 
-            <form action="book_appointment.php" method="POST">
+            <form action="book_appointment.php?lawyer_id=<?php echo htmlspecialchars($lawyer_id); ?>" method="POST">
                 <input type="hidden" name="lawyer_id" value="<?php echo htmlspecialchars($lawyer_id); ?>">
 
                 <div class="mb-3">

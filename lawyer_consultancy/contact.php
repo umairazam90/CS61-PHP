@@ -73,11 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <h3 class="text-secondary mb-3">Contact Information</h3>
                             <div class="mb-4">
                                 <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Address</h5>
-                                <p>123 Legal Street<br>Law District, LC 12345<br>United States</p>
+                                <p>123 Legal Street<br>Law Bar Lahore District Court<br>Lahore</p>
                             </div>
                             <div class="mb-4">
                                 <h5><i class="fas fa-phone text-primary me-2"></i>Phone</h5>
-                                <p>+1 (555) 123-4567</p>
+                                <p>+92 123-4567</p>
                             </div>
                             <div class="mb-4">
                                 <h5><i class="fas fa-envelope text-primary me-2"></i>Email</h5>

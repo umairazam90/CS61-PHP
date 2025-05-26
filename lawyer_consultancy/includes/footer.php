@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; <?php echo date("Y"); ?> LawyerHire. All rights reserved.</p>
+                    <p>LawyerHire. All rights reserved.</p>
                 </div>
                 <div class="col-md-6">
                     <div class="text-md-end">

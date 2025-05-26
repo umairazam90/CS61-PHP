@@ -33,7 +33,6 @@ $lawyer_images = [
     'imran_shah.jpg',
     'zainab_malik.jpg',
     'kashif_mahmood.jpg',
-    'default-lawyer.jpg'
 ];
 
 $upload_dir = __DIR__ . '/uploads/profile_pictures/';
