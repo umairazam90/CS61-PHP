@@ -1,17 +1,13 @@
-/* css/style.css */
 
-/* Custom styles that might override or add to Bootstrap */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e9ecef; /* Light gray background */
+    background-color: #e9ecef;
 }
 
-/* Override Bootstrap container to use 90% width on larger screens for a bit more space */
 .container {
-    max-width: 1200px; /* Or whatever maximum width you prefer */
+    max-width: 1200px; 
 }
 
-/* Custom styling for messages (Bootstrap has alerts, but this maintains your previous class names) */
 .message {
     padding: 1rem;
     margin-bottom: 1rem;
@@ -31,37 +27,35 @@ body {
     border: 1px solid #f5c6cb;
 }
 
-/* Status Badges for appointments */
 .status-pending {
-    background-color: #ffc107; /* warning yellow */
-    color: #343a40; /* dark text */
+    background-color: #ffc107; 
+    color: #343a40; 
     padding: .3em .6em;
     border-radius: .25rem;
     font-weight: bold;
 }
 .status-confirmed {
-    background-color: #28a745; /* success green */
+    background-color: #28a745; 
     color: white;
     padding: .3em .6em;
     border-radius: .25rem;
     font-weight: bold;
 }
 .status-cancelled {
-    background-color: #dc3545; /* danger red */
+    background-color: #dc3545; 
     color: white;
     padding: .3em .6em;
     border-radius: .25rem;
     font-weight: bold;
 }
 .status-completed {
-    background-color: #007bff; /* primary blue */
+    background-color: #007bff; 
     color: white;
     padding: .3em .6em;
     border-radius: .25rem;
     font-weight: bold;
 }
 
-/* Specific styling for Lawyer Cards */
 .lawyer-card {
     border: 1px solid #e0e0e0;
     border-radius: .5rem;
@@ -78,17 +72,16 @@ body {
 }
 
 .lawyer-card .profile-pic {
-    width: 120px; /* Larger profile picture */
+    width: 120px;
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #007bff; /* Primary blue border */
+    border: 4px solid #007bff; 
     float: right;
     margin-left: 1rem;
-    margin-bottom: 0.5rem; /* Space below image if text wraps */
+    margin-bottom: 0.5rem; 
 }
 
-/* Ensure text flows around image correctly */
 .lawyer-card::after {
     content: "";
     display: table;
@@ -101,7 +94,6 @@ body {
     font-size: 1.75rem;
 }
 
-/* Admin Dashboard Stats */
 .admin-dashboard-stats .stat-box {
     text-align: center;
     padding: 1.5rem;
@@ -117,13 +109,13 @@ body {
 
 .admin-dashboard-stats .stat-box h3 {
     font-size: 1.1rem;
-    color: #6c757d; /* secondary text color */
+    color: #6c757d; 
     margin-bottom: 0.5rem;
 }
 
 .admin-dashboard-stats .stat-box p {
     font-size: 2.8rem;
     font-weight: bold;
-    color: #007bff; /* primary blue */
+    color: #007bff;
     margin-bottom: 0;
 }

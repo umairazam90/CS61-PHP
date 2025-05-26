@@ -1,19 +1,15 @@
 <?php
-// client/view_lawyers.php
 require_once __DIR__ . '/../includes/db_config.php';
-require_once __DIR__ . '/../includes/header.php'; // Handles session_start()
+require_once __DIR__ . '/../includes/header.php';
 
-// Check if user is logged in and is a client
 if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
     header("Location: " . BASE_URL . "login.php");
     exit();
 }
 
-// Get search parameters
 $search_name = isset($_GET['search_name']) ? trim($_GET['search_name']) : '';
 $search_specialization = isset($_GET['search_specialization']) ? trim($_GET['search_specialization']) : '';
 
-// Build the query with search filters
 $sql = "SELECT lawyer_id, name, specialization, experience, hourly_rate, bio, profile_picture FROM lawyers WHERE is_available = TRUE";
 $params = [];
 $types = "";
@@ -48,7 +44,6 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Get unique specializations for filter dropdown
 $specializations = [];
 $spec_stmt = $conn->prepare("SELECT DISTINCT specialization FROM lawyers WHERE is_available = TRUE ORDER BY specialization");
 $spec_stmt->execute();
@@ -65,8 +60,6 @@ $conn->close();
 <div class="row mb-4">
     <div class="col-12">
         <h2 class="mb-4 text-primary"><i class="fas fa-search me-2"></i>Find Your Lawyer</h2>
-
-        <!-- Search Form -->
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <form method="GET" action="">
@@ -100,8 +93,6 @@ $conn->close();
                 </form>
             </div>
         </div>
-
-        <!-- Results Summary -->
         <div class="mb-3">
             <span class="text-muted">
                 <?php if (!empty($search_name) || !empty($search_specialization)): ?>
@@ -179,7 +170,6 @@ $conn->close();
     </div>
 <?php endif; ?>
 
-<!-- Add some custom styling -->
 <style>
 .lawyer-card {
     background: #fff;

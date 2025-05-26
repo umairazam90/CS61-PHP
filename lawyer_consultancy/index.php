@@ -1,13 +1,12 @@
 <?php
-// index.php
 require_once __DIR__ . '/includes/db_config.php';
-require_once __DIR__ . '/includes/header.php'; // Handles session_start()
+require_once __DIR__ . '/includes/header.php'; 
 ?>
 
 <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
     <div class="container-fluid py-5 text-center">
         <?php if (isset($_SESSION['user_id'])): ?>
-            <?php if ($_SESSION['role_id'] == 1): // Client ?>
+            <?php if ($_SESSION['role_id'] == 1): ?>
                 <h1 class="display-5 fw-bold text-primary">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
                 <p class="col-md-8 fs-4 mx-auto">Find the right legal expert for your needs. Connect with experienced professionals who understand your requirements.</p>
                 <div class="mt-5">
@@ -50,8 +49,8 @@ require_once __DIR__ . '/includes/header.php'; // Handles session_start()
                         </div>
                     </div>
                 </div>
-            <?php elseif ($_SESSION['role_id'] == 2): // Admin ?>
-                <h1 class="display-5 fw-bold text-success">Welcome, Admin <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+            <?php elseif ($_SESSION['role_id'] == 2):  ?>
+                <h1 class="display-5 fw-bold text-success">Welcome<?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
                 <p class="col-md-8 fs-4 mx-auto">You are logged in as an administrator. Here's your system overview:</p>
                 <div class="mt-5">
                     <?php
@@ -124,7 +123,7 @@ require_once __DIR__ . '/includes/header.php'; // Handles session_start()
     </div>
 </div>
 
-<?php if (isset($_SESSION['user_id']) && $_SESSION['role_id'] == 2): // Admin cards ?>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['role_id'] == 2): ?>
 <div class="row">
     <div class="col-md-4">
         <div class="card shadow-sm h-100">
@@ -154,7 +153,7 @@ require_once __DIR__ . '/includes/header.php'; // Handles session_start()
         </div>
     </div>
 </div>
-<?php else: // Client/Guest cards ?>
+<?php else:  ?>
 <div class="row">
     <div class="col-md-4">
         <div class="card shadow-sm h-100">

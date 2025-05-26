@@ -1,6 +1,5 @@
 
 <?php
-// contact.php
 require_once __DIR__ . '/includes/db_config.php';
 require_once __DIR__ . '/includes/header.php';
 
@@ -20,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Invalid email format.";
         $message_type = "error";
     } else {
-        // Here you would typically send an email or save to database
         $message = "Thank you for your message! We'll get back to you soon.";
         $message_type = "success";
     }

@@ -1,6 +1,5 @@
 
 <?php
-// about.php
 require_once __DIR__ . '/includes/db_config.php';
 require_once __DIR__ . '/includes/header.php';
 ?>

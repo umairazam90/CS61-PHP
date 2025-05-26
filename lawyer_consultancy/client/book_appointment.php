@@ -1,9 +1,7 @@
 <?php
-// client/book_appointment.php
 require_once __DIR__ . '/../includes/db_config.php';
-require_once __DIR__ . '/../includes/header.php'; // Handles session_start()
+require_once __DIR__ . '/../includes/header.php'; 
 
-// Check if user is logged in and is a client
 if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
     header("Location: " . BASE_URL . "login.php");
     exit();
@@ -15,7 +13,6 @@ $lawyer_name = '';
 $message = '';
 $message_type = '';
 
-// Fetch lawyer details if lawyer_id is provided
 if ($lawyer_id) {
     $stmt = $conn->prepare("SELECT name, specialization, profile_picture FROM lawyers WHERE lawyer_id = ?");
     $stmt->bind_param("i", $lawyer_id);
@@ -33,7 +30,7 @@ if ($lawyer_id) {
     }
     $stmt->close();
 } else {
-    // Redirect to view lawyers page if no lawyer_id is provided
+
     header("Location: " . BASE_URL . "client/view_lawyers.php");
     exit();
 }
@@ -43,8 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $lawyer_id) {
     $appointment_date = $_POST['appointment_date'];
     $appointment_time = $_POST['appointment_time'];
     $description = trim($_POST['description']);
-
-    // Basic validation
     if (empty($appointment_date) || empty($appointment_time)) {
         $message = "Appointment date and time are required.";
         $message_type = "error";
@@ -52,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $lawyer_id) {
         $message = "Appointment date and time cannot be in the past.";
         $message_type = "error";
     } else {
-        // Check for existing appointments for this lawyer at this time
         $stmt_check = $conn->prepare("SELECT appointment_id FROM appointments WHERE lawyer_id = ? AND appointment_date = ? AND appointment_time = ? AND (status = 'pending' OR status = 'confirmed')");
         $stmt_check->bind_param("iss", $selected_lawyer_id, $appointment_date, $appointment_time);
         $stmt_check->execute();
@@ -62,14 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $lawyer_id) {
             $message = "This lawyer is already booked at the selected date and time. Please choose another time.";
             $message_type = "error";
         } else {
-            // Insert appointment
             $stmt_insert = $conn->prepare("INSERT INTO appointments (user_id, lawyer_id, appointment_date, appointment_time, description, status) VALUES (?, ?, ?, ?, ?, 'pending')");
             $stmt_insert->bind_param("iisss", $user_id, $selected_lawyer_id, $appointment_date, $appointment_time, $description);
 
             if ($stmt_insert->execute()) {
                 $message = "Appointment booked successfully! It is pending confirmation.";
                 $message_type = "success";
-                // Clear form fields
                 $appointment_date = '';
                 $appointment_time = '';
                 $description = '';

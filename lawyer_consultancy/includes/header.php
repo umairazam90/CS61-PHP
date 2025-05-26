@@ -1,9 +1,8 @@
 <?php
-// includes/header.php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'db_config.php'; // Ensure BASE_URL is defined
+require_once 'db_config.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +30,7 @@ require_once 'db_config.php'; // Ensure BASE_URL is defined
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            <?php if ($_SESSION['role_id'] == 1): // Client ?>
+                            <?php if ($_SESSION['role_id'] == 1):  ?>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
@@ -56,7 +55,7 @@ require_once 'db_config.php'; // Ensure BASE_URL is defined
                                         ?>
                                     </span>
                                 </li>
-                            <?php elseif ($_SESSION['role_id'] == 2): // Admin ?>
+                            <?php elseif ($_SESSION['role_id'] == 2): ?>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>

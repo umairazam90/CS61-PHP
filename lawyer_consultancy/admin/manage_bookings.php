@@ -1,9 +1,7 @@
 <?php
-// admin/manage_bookings.php
 require_once __DIR__ . '/../includes/db_config.php';
-require_once __DIR__ . '/../includes/header.php'; // Handles session_start()
+require_once __DIR__ . '/../includes/header.php'; 
 
-// Check if user is logged in and is an admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
     header("Location: " . BASE_URL . "login.php");
     exit();
@@ -12,7 +10,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
 $message = '';
 $message_type = '';
 
-// Handle status update
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['appointment_id']) && isset($_POST['new_status'])) {
     $appointment_id = $_POST['appointment_id'];
     $new_status = $_POST['new_status'];
@@ -34,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['appointment_id']) && i
     }
 }
 
-// Fetch all appointments with user and lawyer details
 $appointments = [];
 $stmt = $conn->prepare("SELECT a.appointment_id, u.fullname AS client_name, u.email AS client_email,
                         l.name AS lawyer_name, l.specialization,

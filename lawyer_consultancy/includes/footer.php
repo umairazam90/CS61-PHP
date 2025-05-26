@@ -1,5 +1,4 @@
 <?php
-// includes/footer.php
 ?>
     </main>
     <footer class="bg-dark text-white py-4 mt-4">

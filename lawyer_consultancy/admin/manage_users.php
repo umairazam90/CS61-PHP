@@ -1,9 +1,6 @@
 <?php
-// admin/manage_users.php
 require_once __DIR__ . '/../includes/db_config.php';
-require_once __DIR__ . '/../includes/header.php'; // Handles session_start()
-
-// Check if user is logged in and is an admin
+require_once __DIR__ . '/../includes/header.php';
 if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
     header("Location: " . BASE_URL . "login.php");
     exit();

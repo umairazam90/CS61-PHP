@@ -1,9 +1,6 @@
 <?php
-// admin/manage_lawyers.php
 require_once __DIR__ . '/../includes/db_config.php';
-require_once __DIR__ . '/../includes/header.php'; // Handles session_start()
-
-// Check if user is logged in and is an admin
+require_once __DIR__ . '/../includes/header.php';
 if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
     header("Location: " . BASE_URL . "login.php");
     exit();
@@ -11,16 +8,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
 
 $message = '';
 $message_type = '';
-$upload_dir_relative = 'uploads/profile_pictures/'; // Relative to BASE_URL
-$upload_dir_absolute = __DIR__ . '/../uploads/profile_pictures/'; // Absolute path for PHP file operations
+$upload_dir_relative = 'uploads/profile_pictures/';
+$upload_dir_absolute = __DIR__ . '/../uploads/profile_pictures/';
 
-// Ensure upload directory exists
 if (!is_dir($upload_dir_absolute)) {
     mkdir($upload_dir_absolute, 0777, true);
 }
 
-
-// Handle Add/Edit Lawyer
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'] ?? '';
     $lawyer_id = $_POST['lawyer_id'] ?? null;
@@ -32,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_email = trim($_POST['contact_email']);
     $contact_phone = trim($_POST['contact_phone']);
 
-    $profile_picture = ''; // Default to empty
+    $profile_picture = ''; 
     $new_file_uploaded = false;
 
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
@@ -57,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (!$message) { // Only proceed if no upload errors
+    if (!$message) {
         if ($action == 'add') {
             $stmt = $conn->prepare("INSERT INTO lawyers (name, specialization, experience, hourly_rate, bio, contact_email, contact_phone, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("ssidsiss", $name, $specialization, $experience, $hourly_rate, $bio, $contact_email, $contact_phone, $profile_picture);
@@ -98,7 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->execute()) {
                 $message = "Lawyer updated successfully.";
                 $message_type = "success";
-                // Delete old picture if a new one was uploaded and an old one existed
                 if ($new_file_uploaded && !empty($current_lawyer_data['profile_picture']) && file_exists($upload_dir_absolute . $current_lawyer_data['profile_picture'])) {
                     unlink($upload_dir_absolute . $current_lawyer_data['profile_picture']);
                 }
@@ -111,11 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Handle Delete Lawyer
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $lawyer_id_to_delete = $_GET['id'];
-
-    // Get picture path before deleting lawyer record
     $profile_picture_to_delete = '';
     $stmt_pic = $conn->prepare("SELECT profile_picture FROM lawyers WHERE lawyer_id = ?");
     $stmt_pic->bind_param("i", $lawyer_id_to_delete);
@@ -125,8 +115,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
         $profile_picture_to_delete = $result_pic->fetch_assoc()['profile_picture'];
     }
     $stmt_pic->close();
-
-    // Delete associated appointments first (if not using ON DELETE CASCADE in DB)
     $stmt_delete_appointments = $conn->prepare("DELETE FROM appointments WHERE lawyer_id = ?");
     $stmt_delete_appointments->bind_param("i", $lawyer_id_to_delete);
     $stmt_delete_appointments->execute();
@@ -138,7 +126,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     if ($stmt->execute()) {
         $message = "Lawyer deleted successfully.";
         $message_type = "success";
-        // Delete the actual profile picture file
         if (!empty($profile_picture_to_delete) && file_exists($upload_dir_absolute . $profile_picture_to_delete)) {
             unlink($upload_dir_absolute . $profile_picture_to_delete);
         }
@@ -149,7 +136,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     $stmt->close();
 }
 
-// Fetch all lawyers for display
 $lawyers = [];
 $stmt = $conn->prepare("SELECT lawyer_id, name, specialization, experience, hourly_rate, bio, contact_email, contact_phone, profile_picture FROM lawyers ORDER BY name");
 $stmt->execute();
@@ -160,11 +146,10 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 
-// For Edit mode, load lawyer data into form
 $edit_lawyer = null;
 if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
     $edit_id = $_GET['id'];
-    $conn_edit = new mysqli($servername, $username, $password, $dbname); // Re-open connection for this context
+    $conn_edit = new mysqli($servername, $username, $password, $dbname); 
     $stmt_edit = $conn_edit->prepare("SELECT lawyer_id, name, specialization, experience, hourly_rate, bio, contact_email, contact_phone, profile_picture FROM lawyers WHERE lawyer_id = ?");
     $stmt_edit->bind_param("i", $edit_id);
     $stmt_edit->execute();

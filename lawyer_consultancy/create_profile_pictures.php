@@ -1,8 +1,5 @@
 
 <?php
-// This script will create simple placeholder images for all lawyers
-// You can replace these with actual photos later
-
 $lawyer_images = [
     'ahmed_raza_khan.jpg',
     'saqib_ali_shah.jpg',
@@ -37,27 +34,12 @@ $lawyer_images = [
 
 $upload_dir = __DIR__ . '/uploads/profile_pictures/';
 
-// Create directory if it doesn't exist
 if (!is_dir($upload_dir)) {
     mkdir($upload_dir, 0777, true);
 }
-
-echo "<h2>Profile Picture Setup Instructions</h2>";
-echo "<p>Please add the following image files to the <code>uploads/profile_pictures/</code> folder:</p>";
-echo "<ul>";
 
 foreach ($lawyer_images as $image) {
     echo "<li>" . htmlspecialchars($image) . "</li>";
 }
 
-echo "</ul>";
-echo "<p><strong>Note:</strong> You can use any professional headshot photos for these lawyers. Make sure the images are:</p>";
-echo "<ul>";
-echo "<li>Square aspect ratio (recommended: 300x300px or larger)</li>";
-echo "<li>Professional looking</li>";
-echo "<li>Clear and well-lit</li>";
-echo "<li>JPG format</li>";
-echo "</ul>";
-
-echo "<p>After adding the images, run the <a href='insert_lawyers.php'>insert_lawyers.php</a> script to populate the database.</p>";
 ?>

@@ -1,9 +1,7 @@
 <?php
-// admin/index.php
 require_once __DIR__ . '/../includes/db_config.php';
-require_once __DIR__ . '/../includes/header.php'; // Handles session_start()
+require_once __DIR__ . '/../includes/header.php'; 
 
-// Check if user is logged in and is an admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
     header("Location: " . BASE_URL . "login.php");
     exit();
@@ -11,7 +9,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 2) {
 
 $total_lawyers = 0;
 $pending_bookings = 0;
-$total_clients = 0; // Renamed from total_users for clarity as admin can manage all users
+$total_clients = 0; 
 
 $stmt_lawyers = $conn->prepare("SELECT COUNT(*) AS count FROM lawyers");
 $stmt_lawyers->execute();
@@ -25,7 +23,7 @@ $result_pending_bookings = $stmt_pending_bookings->get_result();
 $pending_bookings = $result_pending_bookings->fetch_assoc()['count'];
 $stmt_pending_bookings->close();
 
-$stmt_total_clients = $conn->prepare("SELECT COUNT(*) AS count FROM users WHERE role_id = 1"); // Assuming role_id 1 is 'client'
+$stmt_total_clients = $conn->prepare("SELECT COUNT(*) AS count FROM users WHERE role_id = 1"); 
 $stmt_total_clients->execute();
 $result_total_clients = $stmt_total_clients->get_result();
 $total_clients = $result_total_clients->fetch_assoc()['count'];

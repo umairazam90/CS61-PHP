@@ -1,7 +1,6 @@
 <?php
-// register.php
 require_once __DIR__ . '/includes/db_config.php';
-require_once __DIR__ . '/includes/header.php'; // Handles session_start()
+require_once __DIR__ . '/includes/header.php';
 
 $message = '';
 $message_type = '';
@@ -12,8 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $fullname = trim($_POST['fullname']);
-
-    // Basic validation
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($fullname)) {
         $message = "All fields are required.";
         $message_type = "error";
@@ -27,10 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Invalid email format.";
         $message_type = "error";
     } else {
-        // Hash the password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Check if username or email already exists
         $stmt_check = $conn->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
         $stmt_check->bind_param("ss", $username, $email);
         $stmt_check->execute();
@@ -40,14 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $message = "Username or Email already exists.";
             $message_type = "error";
         } else {
-            // Get client role_id (assuming role_id 1 is 'client')
             $stmt_role = $conn->prepare("SELECT role_id FROM roles WHERE role_name = 'client'");
             $stmt_role->execute();
             $result_role = $stmt_role->get_result();
             $role_data = $result_role->fetch_assoc();
             $client_role_id = $role_data['role_id'];
-
-            // Insert new user
             $stmt_insert = $conn->prepare("INSERT INTO users (username, password, email, fullname, role_id) VALUES (?, ?, ?, ?, ?)");
             $stmt_insert->bind_param("ssssi", $username, $hashed_password, $email, $fullname, $client_role_id);
 
