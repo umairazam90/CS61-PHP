@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role_id'] = $user['role_id'];
 
             if ($user['role_id'] == 1) { // Client
-                header("Location: " . BASE_URL . "client/index.php");
+                header("Location: " . BASE_URL . "index.php");
             } elseif ($user['role_id'] == 2) { // Admin
                 header("Location: " . BASE_URL . "admin/index.php");
             }

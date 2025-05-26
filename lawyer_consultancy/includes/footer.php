@@ -2,9 +2,20 @@
 // includes/footer.php
 ?>
     </main>
-    <footer class="bg-dark text-white text-center py-3 mt-4">
+    <footer class="bg-dark text-white py-4 mt-4">
         <div class="container">
-            <p>&copy; <?php echo date("Y"); ?> LawyerHire. All rights reserved.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; <?php echo date("Y"); ?> LawyerHire. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-end">
+                        <a href="<?php echo BASE_URL; ?>about.php" class="text-white text-decoration-none me-3">About Us</a>
+                        <a href="<?php echo BASE_URL; ?>contact.php" class="text-white text-decoration-none me-3">Contact Us</a>
+                        <a href="<?php echo BASE_URL; ?>location.php" class="text-white text-decoration-none">Location</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 

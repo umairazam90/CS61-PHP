@@ -32,19 +32,50 @@ require_once 'db_config.php'; // Ensure BASE_URL is defined
                     <ul class="navbar-nav ms-auto">
                         <?php if (isset($_SESSION['user_id'])): ?>
                             <?php if ($_SESSION['role_id'] == 1): // Client ?>
-                                <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>client/view_lawyers.php">View Lawyers</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>client/view_appointments.php">My Appointments</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>client/profile.php">My Profile</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>client/index.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>client/view_lawyers.php"><i class="fas fa-gavel me-2"></i>View Lawyers</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>client/view_appointments.php"><i class="fas fa-calendar-check me-2"></i>My Appointments</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>client/profile.php"><i class="fas fa-user-circle me-2"></i>My Profile</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link text-light">
+                                        <?php 
+                                        $display_username = $_SESSION['username'];
+                                        if (strpos($display_username, '@gmail.com') !== false) {
+                                            $display_username = str_replace('@gmail.com', '', $display_username);
+                                        }
+                                        echo htmlspecialchars($display_username); 
+                                        ?>
+                                    </span>
+                                </li>
                             <?php elseif ($_SESSION['role_id'] == 2): // Admin ?>
-                                <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>admin/manage_lawyers.php">Manage Lawyers</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>admin/manage_bookings.php">Manage Bookings</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>admin/manage_users.php">Manage Users</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownAdmin">
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>admin/index.php"><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>admin/manage_lawyers.php"><i class="fas fa-balance-scale me-2"></i>Manage Lawyers</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>admin/manage_bookings.php"><i class="fas fa-calendar-check me-2"></i>Manage Bookings</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>admin/manage_users.php"><i class="fas fa-users-cog me-2"></i>Manage Users</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link text-light">
+                                        <?php echo htmlspecialchars($_SESSION['username']); ?>
+                                    </span>
+                                </li>
                             <?php endif; ?>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-light btn-sm ms-2" href="<?php echo BASE_URL; ?>logout.php">
-                                    <i class="fas fa-sign-out-alt"></i> Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)
-                                </a>
-                            </li>
                         <?php else: ?>
                             <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>login.php">Login</a></li>
                             <li class="nav-item"><a class="nav-link btn btn-light text-primary ms-2" href="<?php echo BASE_URL; ?>register.php">Register</a></li>

@@ -49,7 +49,13 @@ $conn->close();
 
 <h2 class="mb-4 text-primary"><i class="fas fa-tachometer-alt me-2"></i>Client Dashboard</h2>
 
-<p class="lead">Welcome back, **<?php echo htmlspecialchars($_SESSION['username']); ?>**!</p>
+<p class="lead">Welcome back,<?php 
+$display_username = $_SESSION['username'];
+if (strpos($display_username, '@gmail.com') !== false) {
+    $display_username = str_replace('@gmail.com', '', $display_username);
+}
+echo htmlspecialchars($display_username); 
+?>**!</p>
 
 <div class="row g-4 mb-4 admin-dashboard-stats">
     <div class="col-md-4">
